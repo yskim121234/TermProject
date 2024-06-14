@@ -1,5 +1,5 @@
 import pygame
-from Charcter.Charcter import Character
+from Character.Charcter import Character
 from Object.Platform import Platform
 from Object.Goal import Goal
 from Object.Lock import Lock
@@ -24,6 +24,11 @@ def main():
     done = False
     clock = pygame.time.Clock()
 
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+        
     sky = Sky(0, 0, 1280, 720)
     player = Character(position=(100, 420))
     platforms = [Platform(i*100, 620, 100, 100) for i in range(13)]
@@ -39,7 +44,6 @@ def main():
     
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
                 quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
