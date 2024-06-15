@@ -6,13 +6,15 @@ class Ball(pg.sprite.Sprite):
         #부모 생성자 호출
         super(Ball, self).__init__()
 
+        # 볼 이미지를 불러오고 투명한 부분을 투명하게 만들고, 사이즈를 조절하여 이미지로 저장
         self.image = pg.transform.scale(pg.image.load('./Asset/Object/Ball/Blue.png').convert_alpha(), (size, size))
+        # 현재 이미지의 마스크 저장
         self.mask = pg.mask.from_surface(self.image)
+        # 현재 이미지의 Rect 저장
         self.rect = self.image.get_rect()
+        # Rect의 위치 수정
         self.rect.topleft = (x, y)
-        # 색
-        self.color = 'white'
-        
+
         # 기본 속도
         self.Base_Speed = 5
 
@@ -45,6 +47,11 @@ class Ball(pg.sprite.Sprite):
     def update(self):
         if self.Is_Ready:
             self.Shot()
+
+        # 볼이 좌우로 무한하게 튕기는 경우 방지
+        if self.Speed_Y == 0:
+            self.Speed_Y = 0.1
+
         # 각 축에 속도를 더함
         self.rect.x += self.Speed_X 
         self.rect.y += self.Speed_Y
@@ -53,6 +60,7 @@ class Ball(pg.sprite.Sprite):
         if self.rect.x <= 0:
             self.Speed_X = -self.Speed_X
             self.rect.x = 0
+
         # 오른쪽 벽과 충돌 시
         if self.rect.x >= self.Max_Range_X-self.rect.w:
             self.Speed_X = -self.Speed_X
@@ -61,7 +69,8 @@ class Ball(pg.sprite.Sprite):
         #천장과 충돌 시
         if self.rect.y <=0:
             self.Speed_Y = -self.Speed_Y
-            self.rect.centery = 1
+            self.rect.y = 1 
+        
         #바닥과 충돌 시
         if self.rect.y + self.rect.h >= self.Max_Range_Y:
             #죽음
