@@ -19,6 +19,7 @@ class Character(pg.sprite.Sprite):
         self.animations = []
         self.animations.append(Animation('./Asset/Character/Girl/Idle', self.size))
         self.animations.append(Animation('./Asset/Character/Girl/Walk', self.size))
+        
 
         # init state
         self.idle()

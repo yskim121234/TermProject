@@ -28,5 +28,4 @@ class Animation():
 
     def stop(self):
         self.running = False
-    
-print(os.listdir('./Asset/Character/Girl/Walk'))
+        
