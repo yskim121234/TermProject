@@ -7,7 +7,8 @@ class Ball(pg.sprite.Sprite):
         super(Ball, self).__init__()
 
         # 볼 이미지를 불러오고 투명한 부분을 투명하게 만들고, 사이즈를 조절하여 이미지로 저장
-        self.image = pg.transform.scale(pg.image.load('./Asset/Object/Ball/Blue.png').convert_alpha(), (size, size))
+        self.image = pg.transform.scale(
+            pg.image.load('./Asset/Object/Ball/Blue.png').convert_alpha(), (size, size))
         # 현재 이미지의 마스크 저장
         self.mask = pg.mask.from_surface(self.image)
         # 현재 이미지의 Rect 저장

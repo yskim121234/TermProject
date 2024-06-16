@@ -1,4 +1,5 @@
 from tkinter import *
+import os
 import Platformer
 import Race
 import BreakOut
@@ -10,16 +11,17 @@ def main():
     def start_game():
         games[select.get()]()
 
+    os.chdir(__file__.replace('\\Title.py', ''))
     app = Tk()
     app.title('텀프로젝트 -게임 모음- 20244033 김연성')
-    app.geometry('400x200+320+180')
+    app.geometry('400x200+760+440')
     app.config(bg='black')
 
     options = ['[3D] 레이스', '[2D] 벽돌깨기', '[2D] 플렛포머']
     games = {}
     games['게임을 선택하세요.'] = Pass
     games['[3D] 레이스'] = Race.Race
-    games['[2D] 플렛포머'] = Platformer.Flatformer
+    games['[2D] 플렛포머'] = Platformer.Platformer
     games['[2D] 벽돌깨기'] = BreakOut.BreakOut
 
     select = StringVar()

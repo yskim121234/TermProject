@@ -71,7 +71,7 @@ def Race():
         # 현재 속도 표시
         text = font.render('%.1f Km/h' %(np.abs(car.speed)), False, 'white', 'black')
         screen.blit(text, (350,570))
-
+        
         text = font.render('X:%.1f  Y:%.1f R: %.1f' %(posx, posy, rot), False, 'white', 'black')
         screen.blit(text, (0, 30))
         # 스프라이트 업데이트 및 그리기

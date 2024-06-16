@@ -52,7 +52,6 @@ def Platformer():
             # 종료
             if event.type == pg.QUIT:
                 running = False
-                pg.quit()
             if event.type == pg.KEYDOWN:
                 # R을 눌러 재시작
                 if event.key == pg.K_r:

@@ -13,7 +13,7 @@ def Recode_Update(name, score):
     db = sqlite3.connect('./Recode.db')
     cur = db.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS recode(name TEXT, score INT)""")
-    cur.execute("""INSERT INTO recode (name, score) VALUES (?, ?)""", (name, str(score)))
+    cur.execute("""INSERT INTO recode (name, score) VALUES (?, ?)""", (name, score))
     db.commit()
     db.close()
 
@@ -65,7 +65,7 @@ def BreakOut():
     recode = {}
 
     # 시작
-    start = True
+    title = True
     # 체력 리스트 및 아이콘 생성
     health = pg.sprite.Group()
     for i in range(3):
@@ -98,7 +98,7 @@ def BreakOut():
                 running = False
             else:      
                 if event.type == pg.MOUSEBUTTONDOWN:
-                    if start:
+                    if title:
                         if difficulty_option.Easy_Rect.Is_Hoverd(mouseX, mouseY) and pg.mouse.get_pressed()[0] == 1:
                             ball.Base_Speed = 5
                             difficulty = 1
@@ -117,22 +117,22 @@ def BreakOut():
                         running = False
                     if event.key == pg.K_BACKSPACE:
                         nickname_input.text = nickname_input.text[:-1]
-                    elif len(nickname_input.text) < 8 and event.key != pg.K_RETURN and event.key != pg.K_SPACE and start == True:
+                    elif len(nickname_input.text) < 8 and event.key != pg.K_RETURN and event.key != pg.K_SPACE and title == True:
                         nickname_input.text += event.unicode
                     if event.key == pg.K_RETURN:
-                        start = False
+                        title = False
                         del difficulty_option
-                    if event.key == pg.K_r and start == False:
+                    if event.key == pg.K_r and title == False:
                         BreakOut()
                     
         # 화면을 검은색으로 채운다.
         display.fill('black')
 
-        if start == True:
+        if title == True:
             nickname_input.Render(display, (display.get_width()/2 - nickname_input.rect.w/2), (display.get_height()/2) - 75)
             difficulty_option.Draw(display)
             desc1 = font.render("Enter your nickname and select difficulty.", True, 'white')
-            desc2 = font.render("Press Enter to Start", True, 'white')
+            desc2 = font.render("Press Enter to title", True, 'white')
             display.blit(desc1, ((display.get_width()/2) - desc1.get_rect().w/2, (display.get_height()/2) + 100))
             display.blit(desc2, ((display.get_width()/2) - desc2.get_rect().w/2, (display.get_height()/2) + 130))
         # 체력이 0보다 큰 경우
@@ -234,7 +234,11 @@ def BreakOut():
                     Recode_Update(nickname_input.text, score)
                 recode = Recode_Load()
                 DB_Once = False
-                scoreboard = [font.render(recode[each_recode] + ' : ' + str(each_recode), True, 'white', None) for each_recode in sorted(recode.keys(), reverse= True)]
+                scoreboard = [font.render(
+                                recode[each_recode] + ' : ' + str(each_recode),
+                                True,
+                                'white',
+                                None) for each_recode in sorted(recode.keys(), reverse= True)]
 
                 if not list(recode.keys())[0] == "Error":
                     if float(sorted(recode.keys(), reverse= True)[0]) <= score:
